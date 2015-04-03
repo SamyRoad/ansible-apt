@@ -1,0 +1,7 @@
+---
+- name: Upgrade the installed packages
+  apt: update_cache=yes upgrade=yes
+  tags:
+    - apt
+
+- debug: msg="If on vagrant - reboot the machine; login; run `sudo /etc/init.d/vboxadd setup` to repare the vagrant specifics."
