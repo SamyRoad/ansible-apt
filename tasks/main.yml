@@ -1,4 +1,17 @@
 ---
+- name: Check if aptitude is already installed
+  stat:
+    path: /usr/bin/aptitude
+  register: aptitude_installed
+  tags:
+    - apt
+
+- name: Install dependencies for apt module
+  command: apt-get install -y aptitude
+  when: (aptitude_installed is defined and not aptitude_installed.stat.exists)
+  tags:
+    - apt
+
 - name: Upgrade the installed packages
   apt: update_cache=yes upgrade=yes
   tags:
